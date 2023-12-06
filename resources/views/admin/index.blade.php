@@ -263,19 +263,6 @@
 
     <script type="module" src="js/admin/indexAdmin.js" defer></script>
     <script src="js/admin/addDeleteHall.js"></script>
-
-
-    <!--
-    <script src="js/admin/addDeleteMovie.js"></script>
-    <script type="module" src="js/admin/addSeance.js"></script>
-    <script type="module" src="js/admin/deleteSeance.js"></script>
-    <script type="module" src="js/admin/resizeHall.js"></script>
-    <script type="module" src="js/admin/hallConfig.js"></script>
-    <script type="module" src="js/admin/viewSeances.js"></script>
-    <script type="module" src="js/admin/inputError.js"></script>
-    <script type="module" src="js/admin/sortSeances.js"></script>
-    <script type="module" src="js/admin/timeToMinutes.js"></script>
--->
 </body>
 
 </html>

@@ -4,11 +4,6 @@ import jsonFetch from "./jsonFetch.js";
 import hallConfig from "./hallConfig.js";
 import priceConfig from "./priceConfig.js";
 
-//import addSeance from "./addSeance.js";
-//import deleteSeance from "./deleteSeance.js";
-//import viewSeances from "./viewSeances.js";
-//import inputError from "./inputError.js";
-//import resizeHall from "./resizeHall.js";
 
 /*
 получение данных с сервера
@@ -192,69 +187,3 @@ const seatsArr1 = [];
 */
 
 /*
-
-//количество рядов и мест в них
-document.querySelector('.rows').onchange = (e) => {
-    resizeHall(hallsData, choosenHall,'rows', parseInt(e.target.value));
-}
-
-document.querySelector('.cols').onchange = (e) => {
-    resizeHall(hallsData, choosenHall,'cols', parseInt(e.target.value));
-}
-
-
-
-
-
-//добавить фильм
-const wrapperMovies = document.querySelector(".conf-step__movies");
-let addMovie = "";
-
-for (let i = 0; i < moviesData.length; i++) {
-    addMovie += `
-        <div class="conf-step__movie">
-            <img class="conf-step__movie-poster" alt="poster" src="/i/poster.png">
-            <h3 class="conf-step__movie-title">${moviesData[i].title}</h3>
-            <p class="conf-step__movie-duration">${moviesData[i].duration} минут</p>
-            <input class="movie_id" type="hidden" value=${moviesData[i].id} />
-            <button class="conf-step__button conf-step__button-trash trash_movie" onclick="deleteMovie(event)""></button>
-        </div>
-    `;
-}
-
-wrapperMovies.innerHTML = addMovie;
-
-// добавить-удалить сеанс
-addSeance(hallsData, moviesData, seancesData);
-deleteSeance(hallsData, moviesData, seancesData);
-
-// отобразить сеанс
-viewSeances(hallsData, moviesData, seancesData);
-
-//сохранить сеансы
-const formSeance = document.getElementById('seance_update');
-formSeance.onsubmit = function(e) {
-    e.preventDefault();
-    //const seances = []
-    seancesData.forEach(seance => {
-        delete seance.movie;
-    });
-
-    const options = {
-        method: 'POST',
-        body: JSON.stringify(seancesData),
-        headers: {'Content-Type': 'application/json'}
-    }
-
-    fetch(`/api/seances`, options)
-        .then(res=> {
-            res.json();
-            if (res.ok) {
-                alert('save');
-            } else {
-                throw new Error(res.status);
-            }
-        })
-}
-
-*/
