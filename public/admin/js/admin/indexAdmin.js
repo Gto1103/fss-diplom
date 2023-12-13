@@ -3,7 +3,7 @@ import close from "./close.js";
 import jsonFetch from "./jsonFetch.js";
 import hallConfig from "./hallConfig.js";
 import priceConfig from "./priceConfig.js";
-
+import inputError from "./inputError.js";
 
 /*
 получение данных с сервера
@@ -54,15 +54,20 @@ cancel.forEach(item => {
     }
 });
 
-
 //выбор зала для конфигурации цены и изменение цены
+
 const hallsListPrice = [...document.getElementsByName('chairs-hall-price')];
 
 for (let i = 0; i < hallsListPrice.length; i++) {
-hallsListPrice[i].addEventListener('input', function() {
-        let choosenHall = i;
-        hallsListPrice[i].checked = true;
-        priceConfig(hallsData, choosenHall);
+    const choosenHall = i;
+    let hallID = hallsListPrice[choosenHall].closest('li').dataset.id;
+    priceConfig(hallsData, choosenHall, hallID);
+
+    hallsListPrice[i].addEventListener('input', function(e) {
+        hallID = e.target.closest('li').dataset.id;
+        if (hallsListPrice[i].checked === true) {
+            priceConfig(hallsData, choosenHall, hallID);
+        }
     })
 }
 
@@ -70,11 +75,16 @@ hallsListPrice[i].addEventListener('input', function() {
 //выбор зала для конфигураций кресел
 const hallsListSeat = [...document.getElementsByName('chairs-hall-seat')];
 
+
 for (let i = 0; i < hallsListSeat.length; i++) {
+    const choosenHall = i;
+    let hallID = hallsListSeat[choosenHall].closest('li').dataset.id;
+    hallConfig(hallsData, choosenHall, seatsData, hallID);
+
     hallsListSeat[i].addEventListener('input', function() {
         let choosenHall = i;
         hallsListSeat[i].checked = true;
-        hallConfig(hallsData, choosenHall, seatsData);
+        hallConfig(hallsData, choosenHall, seatsData, hallID);
     })
 }
 
@@ -185,5 +195,3 @@ const seatsArr1 = [];
         jsonFetch(`/api/seats/${hallsData[choosenHall].id}`, optionsSeats);
 }
 */
-
-/*

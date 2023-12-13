@@ -29,7 +29,6 @@ Route::prefix('admin')->group(function () {
         Route::post('add_hall', [HallController::class, 'create'])->name('addHall');
         Route::post('delete_hall/{id}', [HallController::class, 'deleteHall'])->
         name('deleteHall');
-        Route::post('halls/updatePrice/{hall}', [HallController::class, 'updatePrice'])
-        ->middleware('admin')->name('updatePrice');
+        Route::post('updatePrice/{id}', [HallController::class, 'updatePrice'])->name('updatePrice');
     });
 });

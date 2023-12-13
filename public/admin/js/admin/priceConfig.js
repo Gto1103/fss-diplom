@@ -1,69 +1,36 @@
-import jsonFetch from "./jsonFetch.js";
+import error from "./error.js";
 
-export default function priceConfig(hallsData, choosenHall) {
+export default function priceConfig(hallsData, choosenHall, hallID) {
 
     //загрузка цен с сервера
     let price = document.querySelector('.price');
     let vip_price = document.querySelector('.vip_price');
-    let token = document.getElementsByName('_token')[1].value;
-
-    console.log(token);
 
     price.value = hallsData[choosenHall].price;
     vip_price.value = hallsData[choosenHall].vip_price;
 
     //изменение цены
-    document.querySelector('.price').onchange = (e) => {
+    price.onchange = (e) => {
         const value = parseInt(e.target.value);
-        if (!Number.isInteger(value) || value <= 0) {
+        if (value <= 0 || value > 5000) {
             document.querySelector('.price').value = hallsData[choosenHall].price;
-            return null;
+            error('Введите корректное значение цены');
         }
         hallsData[choosenHall].price = e.target.value;
     }
 
-    document.querySelector('.vip_price').onchange = (e) => {
+    vip_price.onchange = (e) => {
         const value = parseInt(e.target.value);
-        if (!Number.isInteger(value) || value <= 0) {
+        if (value <= 0 || value > 5000) {
             document.querySelector('.vip_price').value = hallsData[choosenHall].price_vip;
-            return null;
+            error('Введите корректное значение цены');
         }
         hallsData[choosenHall].vip_price = e.target.value;
     }
 
 
-//сохранение hall/updatePrice
-const formUpdatePrice = document.getElementById('hall_updatePrice');
-formUpdatePrice.onsubmit = function(e) {
-    e.preventDefault();
-
-    /* const seatsArr1 = [];
-    for (let i = 0; i < hallsData[choosenHall].seat.length; i++) {
-        const type =  hallsData[choosenHall].seat[i];
-        seatsArr1.push({hall_id: hallsData[choosenHall].id, type_seat: type});
-    }
-    delete hallsData[choosenHall].seat;
-    document.querySelector('.data-tables').value = hallsData[choosenHall];*/
-
-    const optionsHalls = {
-        method: 'POST',
-        headers: {
-            "Authorization": `${token}`,
-            "Content-Type": 'application/json'},
-        body: JSON.stringify(hallsData[choosenHall]),
-    }
-
-    fetch(`halls/updatePrice/${hallsData[choosenHall].id}`, optionsHalls)
-    .then(res=> {
-        res.json();
-        if (res.ok) {
-            alert('save');
-        } else {
-            throw new Error(res.status);
-        }
-    })
-}
-
-
-  //  jsonFetch(`/halls/updatePrice/${hallsData[choosenHall].id}`, optionsHalls);
+    //сохранение updatePrice
+    const formUpdatePrice = document.getElementById('updatePrice');
+    //if () когда цена VIP меньше обычной ???
+    formUpdatePrice.action =  '/admin/updatePrice/' + hallID;
 }

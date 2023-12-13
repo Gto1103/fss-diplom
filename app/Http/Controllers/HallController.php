@@ -81,14 +81,14 @@ class HallController extends Controller
             'name' => $validated['name']
         ]);
 
-        for ($i = 0; $i < 6; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             Seat::query()->create([
                 'hall_id' => $hall->id,
                 'type_seat' => 'standart',
             ]);
         }
 
-        return redirect()->back();
+        return redirect('admin/index');
     }
 
     public function deleteHall(int $id): RedirectResponse
@@ -117,12 +117,11 @@ class HallController extends Controller
 
     public function updatePrice(Request $request): RedirectResponse
     {
-
         $updatingHall = Hall::findOrFail($request->id);
-        $updatingHall->price = $request->price;
-        $updatingHall->vip_price = $request->vip_price;
+        $updatingHall->price = +$request['price'];
+        $updatingHall->vip_price = +$request['vip_price'];
         $updatingHall->save();
 
-        return redirect()->back();
+        return redirect('admin/index');
     }
 }

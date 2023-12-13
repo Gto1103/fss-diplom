@@ -24,6 +24,7 @@
     @include('admin.popups.movie_delete_popup')
     @include('admin.popups.showtime_add_popup')
     @include('admin.popups.showtime_delete_popup')
+    @include('admin.popups.error')
 
     <!-- все залы из table-halls в $halls -->
 
@@ -57,10 +58,11 @@
         </section>
 
         <section class="conf-step">
-            <form action="/api/seats" id="seat_update" method="post">
-                @csrf
-                <input class="data-tables" type="hidden" />
+            <form action="/admin/updateSeats" id="updateSeats" method="post" accept-charset="utf-8">
 
+                @csrf
+
+                <input class="data-tables" type="hidden" />
 
                 <header class="conf-step__header conf-step__header_opened">
                     <h2 class="conf-step__title">Конфигурация залов</h2>
@@ -69,23 +71,25 @@
                     <p class="conf-step__paragraph">Выберите зал для конфигурации:</p>
                     <ul class="conf-step__selectors-box">
                         @foreach ($halls as $hall)
-                            <li><input type="radio" class="conf-step__radio" name="chairs-hall-seat"
+                            <li data-id="{{ $hall->id }}">
+                                <input type="radio" class="conf-step__radio" name="chairs-hall-seat"
                                     value="{{ $hall->id }}" checked><span
-                                    class="conf-step__selector">{{ $hall->name }}</span></li>
+                                    class="conf-step__selector">{{ $hall->name }}</span>
+                            </li>
                         @endforeach
                     </ul>
 
                     <p class="conf-step__paragraph">Укажите количество рядов и максимальное количество кресел в ряду:
                     </p>
                     <div class="conf-step__legend">
-                        <label class="conf-step__label">Рядов, шт
-                            <input type="text" class="conf-step__input rows" placeholder="10"
-                                onkeydown="if(event.keyCode==13){return false;}">
+                        <label for="rows" class="conf-step__label">Рядов, шт
+                            <input type="number" id="rows" class="conf-step__input rows" placeholder="10"
+                                min="0" max="30" onkeydown="if(event.keyCode==13){return false;}">
                         </label>
                         <span class="multiplier">x</span>
-                        <label class="conf-step__label">Мест, шт
-                            <input type="text" class="conf-step__input cols" placeholder="8"
-                                onkeydown="if(event.keyCode==13){return false;}">
+                        <label for="cols" class="conf-step__label">Мест, шт
+                            <input type="number" id="cols" class="conf-step__input cols" placeholder="8"
+                                min="0" max="30" onkeydown="if(event.keyCode==13){return false;}">
                         </label>
                     </div>
                     <p class="conf-step__paragraph">Теперь
@@ -102,22 +106,22 @@
                     <div class="conf-step__hall">
                         <div class="conf-step__hall-wrapper">
                             <!-- Создание схемы расстановки кресел -->
-
-                            <fieldset form="hall_update" class="conf-step__buttons text-center">
-                                <button class="cancel conf-step__button conf-step__button-regular">Отмена</button>
-                                <input type="submit" value="Сохранить"
-                                    class="conf-step__button conf-step__button-accent">
-                            </fieldset>
                         </div>
-
+                    </div>
+                    
+                    <fieldset form="updateSeats" class="conf-step__buttons text-center">
+                        <button class="cancel conf-step__button conf-step__button-regular">Отмена</button>
+                        <input type="submit" value="Сохранить" class="conf-step__button conf-step__button-accent">
+                    </fieldset>
             </form>
         </section>
 
         <section class="conf-step">
-            <form action="/admin/halls/updatePrice" id="hall_updatePrice" method="post" accept-charset="utf-8">
-                @csrf {{ csrf_field() }}
-                <input class="data-tables" type="hidden" />
+            <form action="/admin/updatePrice" id="updatePrice" method="post">
 
+                @csrf
+
+                <input class="data-tables" type="hidden" />
                 <header class="conf-step__header conf-step__header_opened">
                     <h2 class="conf-step__title">Конфигурация цен</h2>
                 </header>
@@ -125,25 +129,30 @@
                     <p class="conf-step__paragraph">Выберите зал для конфигурации:</p>
                     <ul class="conf-step__selectors-box">
                         @foreach ($halls as $hall)
-                            <li><input type="radio" class="conf-step__radio" name="chairs-hall-price"
-                                    value="{{ $hall->id }}" checked><span
-                                    class="conf-step__selector">{{ $hall->name }}</span></li>
+                            <li data-id="{{ $hall->id }}">
+                                <input type="radio" class="conf-step__radio" name="chairs-hall-price" checked><span
+                                    class="conf-step__selector">{{ $hall->name }}</span>
+                            </li>
                         @endforeach
                     </ul>
 
                     <p class="conf-step__paragraph">Установите цены для типов кресел:</p>
                     <div class="conf-step__legend">
-                        <label class="conf-step__label">Цена, рублей
-                            <input type="text" class="conf-step__input price" placeholder="0"></label>
+                        <label for="price" class="conf-step__label">Цена, рублей
+                            <input type="number" name="price" id="price" placeholder="100" min="0"
+                                max="5000" step="10" class="conf-step__input price"
+                                placeholder="0"></label>
                         за <span class="conf-step__chair conf-step__chair_standart"></span> обычные кресла
                     </div>
                     <div class="conf-step__legend">
-                        <label class="conf-step__label">Цена, рублей
-                            <input type="text" class="conf-step__input vip_price" placeholder="0"></label>
+                        <label for="vip_price" class="conf-step__label">Цена, рублей
+                            <input type="number" name="vip_price" id="vip_price" placeholder="200" min="0"
+                                max="5000" step="10" class="conf-step__input vip_price"
+                                placeholder="0"></label>
                         за <span class="conf-step__chair conf-step__chair_vip"></span> VIP кресла
                     </div>
 
-                    <fieldset form="hall_updatePrice" class="conf-step__buttons text-center">
+                    <fieldset form="updatePrice" class="conf-step__buttons text-center">
                         <button class="cancel conf-step__button conf-step__button-regular">Отмена</button>
                         <input type="submit" value="Сохранить" class="conf-step__button conf-step__button-accent">
                     </fieldset>
