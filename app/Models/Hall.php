@@ -13,10 +13,15 @@ class Hall extends Model
     use HasFactory;
 
     public $timestamps = false;
+
+    protected $casts = [
+        'seats' => 'array'
+    ];
     protected $fillable = [
         'name',
         'rows',
         'cols',
+        'seats',
         'price',
         'vip_price',
         'is_open',

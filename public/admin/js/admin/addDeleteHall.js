@@ -1,6 +1,6 @@
 function addHall() {
     const addHallPopup = document.querySelector('#addHallPopup');
-    addHallPopup.classList.add('active');
+    addHallPopup.classList.add('active')
 }
 
 function deleteHall(event) {

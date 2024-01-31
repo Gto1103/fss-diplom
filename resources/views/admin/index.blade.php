@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>ИдёмВКино</title>
-    <link rel="stylesheet" href="CSS/normalize.css">
-    <link rel="stylesheet" href="CSS/styles.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link
         href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&amp;subset=cyrillic,cyrillic-ext,latin-ext"
         rel="stylesheet">
@@ -31,7 +31,6 @@
     <input class="data-halls" type="hidden" value="{{ json_encode($halls) }}" />
     <input class="data-movies" type="hidden" value="{{ json_encode($movies) }}" />
     <input class="data-seances" type="hidden" value="{{ json_encode($seances) }}" />
-    <input class="data-seats" type="hidden" value="{{ json_encode($seats) }}" />
 
     <header class="page-header">
         <h1 class="page-header__title">Идём<span>в</span>кино</h1>
@@ -58,11 +57,11 @@
         </section>
 
         <section class="conf-step">
-            <form action="/admin/updateSeats" id="updateSeats" method="post" accept-charset="utf-8">
+            <form action="/admin/updateSeats" id="updateSeats" method="post">
 
                 @csrf
 
-                <input class="data-tables" type="hidden" />
+                <input class="data-tables-seats" name="data-tables-seats" type="hidden" />
 
                 <header class="conf-step__header conf-step__header_opened">
                     <h2 class="conf-step__title">Конфигурация залов</h2>
@@ -83,13 +82,13 @@
                     </p>
                     <div class="conf-step__legend">
                         <label for="rows" class="conf-step__label">Рядов, шт
-                            <input type="number" id="rows" class="conf-step__input rows" placeholder="10"
-                                min="0" max="30" onkeydown="if(event.keyCode==13){return false;}">
+                            <input type="number" name="rows" id="rows" class="conf-step__input rows"
+                                placeholder="10" min="0" max="30">
                         </label>
                         <span class="multiplier">x</span>
                         <label for="cols" class="conf-step__label">Мест, шт
-                            <input type="number" id="cols" class="conf-step__input cols" placeholder="8"
-                                min="0" max="30" onkeydown="if(event.keyCode==13){return false;}">
+                            <input type="number" name="cols" id="cols" class="conf-step__input cols"
+                                placeholder="8" min="0" max="30">
                         </label>
                     </div>
                     <p class="conf-step__paragraph">Теперь
@@ -108,7 +107,7 @@
                             <!-- Создание схемы расстановки кресел -->
                         </div>
                     </div>
-                    
+
                     <fieldset form="updateSeats" class="conf-step__buttons text-center">
                         <button class="cancel conf-step__button conf-step__button-regular">Отмена</button>
                         <input type="submit" value="Сохранить" class="conf-step__button conf-step__button-accent">
@@ -121,7 +120,6 @@
 
                 @csrf
 
-                <input class="data-tables" type="hidden" />
                 <header class="conf-step__header conf-step__header_opened">
                     <h2 class="conf-step__title">Конфигурация цен</h2>
                 </header>
@@ -140,14 +138,14 @@
                     <div class="conf-step__legend">
                         <label for="price" class="conf-step__label">Цена, рублей
                             <input type="number" name="price" id="price" placeholder="100" min="0"
-                                max="5000" step="10" class="conf-step__input price"
+                                max="5000" class="conf-step__input price"
                                 placeholder="0"></label>
                         за <span class="conf-step__chair conf-step__chair_standart"></span> обычные кресла
                     </div>
                     <div class="conf-step__legend">
                         <label for="vip_price" class="conf-step__label">Цена, рублей
                             <input type="number" name="vip_price" id="vip_price" placeholder="200" min="0"
-                                max="5000" step="10" class="conf-step__input vip_price"
+                                max="5000" class="conf-step__input vip_price"
                                 placeholder="0"></label>
                         за <span class="conf-step__chair conf-step__chair_vip"></span> VIP кресла
                     </div>
@@ -172,82 +170,22 @@
                     </button>
                 </p>
                 <div class="conf-step__movies">
-                    <!-- <div class="conf-step__movie">;
-                            <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">;
-                            <h3 class="conf-step__movie-title">Звёздные войны XXIII: Атака клонированных клонов</h3>;
-                            <p class="conf-step__movie-duration">130 минут</p>;
-                        </div>;
+                    <!-- Создание списка фильмов-->
+                </div>
+                <div>
+                    <p class="conf-step__paragraph" style="margin: 20px">Для добавления фильма фильма к сеансу, нажмите на фильм</p>
+                </div>
 
-                        <div class="conf-step__movie">;
-                            <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">;
-                            <h3 class="conf-step__movie-title">Миссия выполнима</h3>;
-                            <p class="conf-step__movie-duration">120 минут</p>;
-                        </div>;
+                <form action="/admin/updateSeances" id="updateSeances" method="post">
 
-                        <div class="conf-step__movie">;
-                            <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">;
-                            <h3 class="conf-step__movie-title">Серая пантера</h3>;
-                            <p class="conf-step__movie-duration">90 минут</p>;
-                        </div>;
+                    @csrf
 
-                        <div class="conf-step__movie">;
-                            <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">;
-                            <h3 class="conf-step__movie-title">Движение вбок</h3>;
-                            <p class="conf-step__movie-duration">95 минут</p>;
-                        </div>;
+                    <input class="data-tables-seances" name="data-tables-seances" type="hidden" />
+                    <div class="conf-step__seances">
+                        <!--  Добавление сеансов -->
+                    </div>
 
-                        <div class="conf-step__movie">;
-                            <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">;
-                            <h3 class="conf-step__movie-title">Кот Да Винчи</h3>;
-                            <p class="conf-step__movie-duration">100 минут</p>;
-                        </div>;-->
-                </div>;
-
-
-                <form action="/api/seance" id="seance_update" method="POST">
-                    <div class="conf-step__seances">;
-                        <!--  <div class="conf-step__seances-hall">;
-                            <h3 class="conf-step__seances-title">Зал 1</h3>;
-                            <div class="conf-step__seances-timeline">;
-                                <div class="conf-step__seances-movie";
-                                    style="width: 60px; background-color: rgb(133, 255, 137); left: 0;">;
-                                    <p class="conf-step__seances-movie-title">Миссия выполнима</p>;
-                                    <p class="conf-step__seances-movie-start">00:00</p>;
-                                </div>;
-                                <div class="conf-step__seances-movie";
-                                    style="width: 60px; background-color: rgb(133, 255, 137); left: 360px;">;
-                                    <p class="conf-step__seances-movie-title">Миссия выполнима</p>;
-                                    <p class="conf-step__seances-movie-start">12:00</p>;
-                                </div>;
-                                <div class="conf-step__seances-movie";
-                                    style="width: 65px; background-color: rgb(202, 255, 133); left: 420px;">;
-                                    <p class="conf-step__seances-movie-title">Звёздные войны XXIII: Атака клонированных;
-                                        клонов</p>;
-                                    <p class="conf-step__seances-movie-start">14:00</p>;
-                                </div>;
-                            </div>;
-                        -->
-                    </div>;
-                    <!--
-                        <div class="conf-step__seances-hall">;
-                            <h3 class="conf-step__seances-title">Зал 2</h3>;
-                            <div class="conf-step__seances-timeline">;
-                                <div class="conf-step__seances-movie";
-                                    style="width: 65px; background-color: rgb(202, 255, 133); left: 595px;">;
-                                    <p class="conf-step__seances-movie-title">Звёздные войны XXIII: Атака клонированных;
-                                        клонов</p>;
-                                    <p class="conf-step__seances-movie-start">19:50</p>;
-                                </div>;
-                                <div class="conf-step__seances-movie";
-                                    style="width: 60px; background-color: rgb(133, 255, 137); left: 660px;">;
-                                    <p class="conf-step__seances-movie-title">Миссия выполнима</p>;
-                                    <p class="conf-step__seances-movie-start">22:00</p>;
-                                </div>;
-                            </div>;
-                        </div>;
-                    -->
-
-                    <fieldset class="conf-step__buttons text-center" form="seance_update">
+                    <fieldset class="conf-step__buttons text-center" form="updateSeances">
                         <button class="cancel conf-step__button conf-step__button-regular">Отмена</button>
                         <input type="submit" value="Сохранить" class="conf-step__button conf-step__button-accent">
                     </fieldset>
@@ -272,6 +210,12 @@
 
     <script type="module" src="js/admin/indexAdmin.js" defer></script>
     <script src="js/admin/addDeleteHall.js"></script>
+    <script src="js/admin/addDeleteMovie.js"></script>
+    <script type="module" src="js/admin/addSeance.js"></script>
+    <script type="module" src="js/admin/deleteSeance.js"></script>
+    <script type="module" src="js/admin/viewSeances.js"></script>
+    <script type="module" src="js/admin/sortSeances.js"></script>
+    <script type="module" src="js/admin/timeToMinutes.js"></script>
 </body>
 
 </html>

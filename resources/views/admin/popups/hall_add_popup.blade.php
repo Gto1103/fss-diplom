@@ -16,8 +16,8 @@
 
                     <label class="conf-step__label conf-step__label-fullsize" for="name">
                         Название зала
-                        <input class="conf-step__input" type="text" id="name"
-                            placeholder="Например, &laquo;Зал 1&raquo;" name="name" required>
+                        <input class="conf-step__input name__cinema" type="text" id="name"
+                            placeholder="Например, &laquo;Зал 1&raquo;" name="name" max="99" required>
                     </label>
                     <div class="alert"></div>
                     <div class="conf-step__buttons text-center">

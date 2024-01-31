@@ -18,7 +18,7 @@ export default function inputError(moviesData, hallsData) {
         }
     })
 
-    const inputMovieTitle = document.getElementById('movie-name');
+    const inputMovieTitle = document.getElementById('movie-title');
     inputMovieTitle.addEventListener('change', function (event) {
         error = false;
         const value = inputMovieTitle.value;

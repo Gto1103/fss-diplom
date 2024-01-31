@@ -417,8 +417,14 @@ input[type='radio'], input[type='submit'], button, .conf-step__header, select {
     height: 50px; }
   .conf-step__movies .conf-step__movie-title {
     font-weight: 500;
-    font-size: 1.4rem; }
-  .conf-step__movies .conf-step__movie-duration {
+    font-size: 1.8rem; }
+.conf-step__movies .conf-step__movie-duration {
+    font-size: 1.4rem;
+    color: rgba(0, 0, 0, 0.7); }
+.conf-step__movies .conf-step__movie-description {
+    font-size: 1.4rem;
+    color: rgba(0, 0, 0, 0.7); }
+.conf-step__movies .conf-step__movie-country {
     font-size: 1.4rem;
     color: rgba(0, 0, 0, 0.7); }
 
@@ -445,6 +451,7 @@ input[type='radio'], input[type='submit'], button, .conf-step__header, select {
   box-sizing: border-box;
   padding: 10px 2px 10px 10px; }
   .conf-step__seances-movie .conf-step__seances-movie-title {
+    word-break: break-all;
     overflow: hidden;
     line-height: 10px;
     height: 100%; }

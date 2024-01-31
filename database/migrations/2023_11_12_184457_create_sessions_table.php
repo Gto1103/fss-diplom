@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignId('movie_id')->nullable()->constrained()->cascadeOnDelete();
             //$table->json('selected_seats')->default(new Expression('(JSON_ARRAY())'));
             //$table->json('seance_seats')->default(new Expression('(JSON_ARRAY())'));
-            $table->json('selected_seats')->nullable();
-            $table->json('seance_seats')->nullable();
+            //$table->json('selected_seats')->nullable();
+            //$table->json('seance_seats')->nullable();
             //$table->date('date')->default('');
             $table->timestamps();
         });

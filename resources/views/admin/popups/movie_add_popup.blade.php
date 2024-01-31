@@ -14,15 +14,26 @@
 
                     @csrf
 
-                    <label class="conf-step__label conf-step__label-fullsize" for="movie-name">
+                    <label class="conf-step__label conf-step__label-fullsize" for="movie-title">
                         Название фильма
-                        <input class="conf-step__input" id="movie-name" type="text"
-                            placeholder="Например, &laquo;Гражданин Кейн&raquo;" name="name" required>
+                        <input class="conf-step__input" id="movie-title" type="text"
+                            placeholder="Например, &laquo;Гражданин Кейн&raquo;" name="title" required>
+                    </label>
+                    <label class="conf-step__label conf-step__label-fullsize" for="movie-description">
+                        Описание фильма
+                        <input class="conf-step__input" id="movie-description" type="text"
+                            placeholder="Например, &laquo;Действия происходят в новой Галактике и так далее...&raquo;"
+                            name="description" required>
                     </label>
                     <label class="conf-step__label conf-step__label-fullsize" for="movie-dur">
                         Продолжительность фильма, мин
-                        <input class="conf-step__input" id="movie-dur" type="text"
+                        <input class="conf-step__input" id="movie-dur" type="number" min="0" max="5000"
                             placeholder="Например, &laquo;120&raquo;" name="duration" required>
+                    </label>
+                    <label class="conf-step__label conf-step__label-fullsize" for="movie-country">
+                        Страна производства
+                        <input class="conf-step__input" id="movie-country" type="text"
+                            placeholder="Например, &laquo;Россия&raquo;" name="country" required>
                     </label>
                     <div class="alert"></div>
                     <div class="conf-step__buttons text-center">

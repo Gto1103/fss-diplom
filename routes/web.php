@@ -3,6 +3,8 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HallController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MovieController;
+use App\Http\Controllers\SeanceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,9 +28,12 @@ Route::prefix('admin')->group(function () {
 
     Route::group(['middleware' => 'auth'], function () {
         Route::get('index', [AdminController::class, 'index'])->name('index');
-        Route::post('add_hall', [HallController::class, 'create'])->name('addHall');
-        Route::post('delete_hall/{id}', [HallController::class, 'deleteHall'])->
-        name('deleteHall');
+        Route::post('add_hall', [HallController::class, 'addHall'])->name('addHall');
+        Route::post('delete_hall/{id}', [HallController::class, 'deleteHall'])->name('deleteHall');
         Route::post('updatePrice/{id}', [HallController::class, 'updatePrice'])->name('updatePrice');
+        Route::post('updateSeats', [HallController::class, 'updateSeats'])->name('updateSeats');
+        Route::post('add_movie', [MovieController::class, 'addMovie'])->name('addMovie');
+        Route::post('delete_movie/{id}', [MovieController::class, 'deleteMovie'])->name('deleteMovie');
+        Route::post('updateSeances', [SeanceController::class, 'updateSeances'])->name('updateSeances');
     });
 });

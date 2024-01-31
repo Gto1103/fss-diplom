@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name')->default('New hall');
             $table->unsignedInteger('rows')->default(4);
             $table->unsignedInteger('cols')->default(5);
+            $table->json('seats');
             $table->unsignedInteger('price')->default(100);
             $table->unsignedInteger('vip_price')->default(200);
             $table->boolean('is_open')->default(true);
