@@ -23,9 +23,9 @@ class MovieStoreRequest extends FormRequest
     {
         return [
             'title' => ['required','string','max:100'],
-				'description' => ['required','string','max:300'],
+			'description' => ['required','string','max:300'],
             'duration' => ['nullable','numeric','max:300'],
-				'country' => ['required','string','max:100'],
+			'country' => ['required','string','max:100'],
         ];
     }
 }

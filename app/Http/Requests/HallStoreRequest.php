@@ -26,11 +26,6 @@ class HallStoreRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:100'],
-            'row' => ['integer', 'max:25'],
-            'cols' => ['integer', 'max:25'],
-            'price' => ['integer', 'max:5000'],
-            'price_vip' => ['integer', 'max:5000'],
-            'is_open' => ['true', 'boolean'],
         ];
     }
 

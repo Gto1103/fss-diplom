@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sessions', function (Blueprint $table) {
             $table->id();
             $table->string('start');
-            $table->foreignId('hall_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('hall_id')->nullable();
             $table->foreignId('movie_id')->nullable()->constrained()->cascadeOnDelete();
             //$table->json('selected_seats')->default(new Expression('(JSON_ARRAY())'));
             //$table->json('seance_seats')->default(new Expression('(JSON_ARRAY())'));

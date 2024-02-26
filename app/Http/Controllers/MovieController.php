@@ -30,12 +30,7 @@ class MovieController extends Controller
 
     public function deleteMovie(int $id): RedirectResponse
     {
-       // $sessions = Session::all();
-        //foreach ($sessions as $session) {
-          //  if ($session->hall_id === $id) {
-          //      Session::destroy($session->id);
-          //  }
-       // }
+        Session::query()->where(['movie_id' => $id])->delete();
         Movie::destroy($id);
 
         return redirect('admin/index');

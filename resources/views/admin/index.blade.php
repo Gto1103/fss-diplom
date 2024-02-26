@@ -138,15 +138,13 @@
                     <div class="conf-step__legend">
                         <label for="price" class="conf-step__label">Цена, рублей
                             <input type="number" name="price" id="price" placeholder="100" min="0"
-                                max="5000" class="conf-step__input price"
-                                placeholder="0"></label>
+                                max="5000" class="conf-step__input price" placeholder="0"></label>
                         за <span class="conf-step__chair conf-step__chair_standart"></span> обычные кресла
                     </div>
                     <div class="conf-step__legend">
                         <label for="vip_price" class="conf-step__label">Цена, рублей
                             <input type="number" name="vip_price" id="vip_price" placeholder="200" min="0"
-                                max="5000" class="conf-step__input vip_price"
-                                placeholder="0"></label>
+                                max="5000" class="conf-step__input vip_price" placeholder="0"></label>
                         за <span class="conf-step__chair conf-step__chair_vip"></span> VIP кресла
                     </div>
 
@@ -173,7 +171,8 @@
                     <!-- Создание списка фильмов-->
                 </div>
                 <div>
-                    <p class="conf-step__paragraph" style="margin: 20px">Для добавления фильма фильма к сеансу, нажмите на фильм</p>
+                    <p class="conf-step__paragraph" style="margin: 20px">Для добавления фильма к сеансу, нажмите на
+                        фильм</p>
                 </div>
 
                 <form action="/admin/updateSeances" id="updateSeances" method="post">
@@ -208,14 +207,14 @@
     </main>
 
 
-    <script type="module" src="js/admin/indexAdmin.js" defer></script>
-    <script src="js/admin/addDeleteHall.js"></script>
-    <script src="js/admin/addDeleteMovie.js"></script>
-    <script type="module" src="js/admin/addSeance.js"></script>
-    <script type="module" src="js/admin/deleteSeance.js"></script>
-    <script type="module" src="js/admin/viewSeances.js"></script>
-    <script type="module" src="js/admin/sortSeances.js"></script>
-    <script type="module" src="js/admin/timeToMinutes.js"></script>
+    <script type="module" src="js/indexAdmin.js" defer></script>
+    <script src="js/addDeleteHall.js"></script>
+    <script src="js/addDeleteMovie.js"></script>
+    <script type="module" src="js/addSeance.js"></script>
+    <script type="module" src="js/deleteSeance.js"></script>
+    <script type="module" src="js/viewSeances.js"></script>
+    <script type="module" src="js/sortSeances.js"></script>
+    <script type="module" src="js/timeToMinutes.js"></script>
 </body>
 
 </html>

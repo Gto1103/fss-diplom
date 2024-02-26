@@ -1,6 +1,6 @@
 import error from "./error.js";
 
-export default function hallConfig(hallsData, choosenHall, hallID) {
+export default function hallConfig(hallsData, choosenHall) {
     let rows = document.querySelector('.rows');
     let cols = document.querySelector('.cols');
 

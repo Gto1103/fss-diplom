@@ -23,23 +23,17 @@ class HallController extends Controller
 
     public function deleteHall(int $id): RedirectResponse
     {
-        $sessions = Session::all();
-        foreach ($sessions as $session) {
-            if ($session->hall_id === $id) {
-                Session::destroy($session->id);
-            }
-        }
+        Session::query()->where(['hall_id' => $id])->delete();
         Hall::destroy($id);
 
         return redirect('admin/index');
     }
 
-    public function updatePrice(Request $request): RedirectResponse
+    public function updatePrice(Request $request, Hall $hall): RedirectResponse
     {
-        $updatingHall = Hall::findOrFail($request->id);
-        $updatingHall->price = +$request['price'];
-        $updatingHall->vip_price = +$request['vip_price'];
-        $updatingHall->save();
+        $hall->price = +$request['price'];
+        $hall->vip_price = +$request['vip_price'];
+        $hall->save();
 
         return redirect('admin/index');
     }

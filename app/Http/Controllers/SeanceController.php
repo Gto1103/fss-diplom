@@ -9,57 +9,51 @@ use App\Models\Session;
 
 class SeanceController extends Controller
 {
-	public function updateSeances(Request $request): RedirectResponse
-	{
-        $seanceData = json_decode($request['data-tables-seances']);
-        //var_dump($seanceData);
-        Session::query()->delete();
-        foreach ($seanceData as $seance)
-		{
-            var_dump($seance->{'start'});
-            var_dump($seance->{'hall_id'});
-            var_dump($seance->{'movie_id'});
+    public function updateSeances(Request $request): RedirectResponse
+    {
+        $idIn = [];
+        $idDB = [];
+        $seances = Session::all();
+        $seancesData = json_decode($request['data-tables-seances']);
 
-            $updatingSeance = Session::create([
-                'start' => $seance->{'start'},
-                //'hall_id' => +$seance->{'hall_id'},
-                //'movie_id' => +$seance->{'movie_id'},
-            ]);
+        foreach ($seancesData as $seanceData) {
+            array_push($idIn, $seanceData->{'id'});
+        }
+        foreach ($seances as $seance) {
+            array_push($idDB, $seance->id);
+        }
 
-            //$updatingSeance->save();
-          //  Session::query()->create($seance);
-		}
-		//$seances = Session::with('movie')->get();
+        foreach ($seancesData as $seanceData) {
+            if ($seances->isEmpty()) {
+                Session::query()->create([
+                    'start' => $seanceData->{'start'},
+                    'hall_id' => +$seanceData->{'hall_id'},
+                    'movie_id' => +$seanceData->{'movie_id'},
+                ]);
+            }
+            if (!in_array($seanceData->{'id'}, $idDB)) {
+                Session::query()->create([
+                    'start' => $seanceData->{'start'},
+                    'hall_id' => +$seanceData->{'hall_id'},
+                    'movie_id' => +$seanceData->{'movie_id'},
+                ]);
+            }
+            //var_dump($seances->whereNotIn('id', $idIn));
 
+            foreach ($seances as $seance) {
+                if (!in_array($seance->id, $idIn)) {
+                    Session::query()->where('id', '=', $seance->id)->delete();
+                }
+            }
+        }
         return redirect('admin/index');
-        exit;
+    }
 
-		//все сеансы стираются и пересоздаются заново. При этом теряется инфо о купленных местах
-
-		$seances = Session::all();
-		Session::query()->delete();
-		$seancesIn = $request->json();
-		foreach ($seancesIn as $seanceIn) {
-			foreach ($seances as $seance) {
-				if ($seanceIn['id'] === $seance->id) {
-					Session::query()->create($seanceIn);
-
-					$s++;
-				}
-			}
-			if ($s == 0) Session::query()->create($seanceIn);
-			$s = 0;
-		}
-		$seancesOut = Session::all();
-		//return response()->json($seancesOut);
-
-	}
-
-	public function addSeats(Request $request, Session $seance)
-	{
-		//$seance = Session::query()->findOrFail($id);
-		$seance->selected_seats = $request->input('selected_seats');
-		$seance->seance_seats = $request->input('seance_seats');
-		$seance->save();
-	}
+    public function addSeats(Request $request, Session $seance)
+    {
+        //$seance = Session::query()->findOrFail($id);
+        $seance->selected_seats = $request->input('selected_seats');
+        $seance->seance_seats = $request->input('seance_seats');
+        $seance->save();
+    }
 }

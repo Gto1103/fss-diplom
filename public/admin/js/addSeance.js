@@ -5,6 +5,10 @@ import error from "./error.js";
 
 export default function addSeance(hallsData, moviesData, seancesData) {
 	const moviesEl = [...document.querySelectorAll('.conf-step__movie')];
+
+    let seancesTable = document.querySelector('.data-tables-seances');
+    seancesTable.value = JSON.stringify(seancesData);
+
 	for (let i = 0; i < moviesEl.length; i++) {
 		moviesEl[i].onclick = (e) => {
 			document.getElementById('addShowPopup').classList.add('active');
@@ -18,9 +22,9 @@ export default function addSeance(hallsData, moviesData, seancesData) {
 					seancesData,
 					moviesData)) {
 					error('Сеанс нельзя установить на занятое время!');
-					return null;
+					return;
 				}
-				const id = seancesData.length > 0 ? seancesData[seancesData.length - 1].id + 1 : 0;
+				const id = seancesData.length > 0 ? seancesData[seancesData.length - 1].id + 1 : 1;
 				const hall_id = parseInt(form.hall.value);
 				const movie = moviesData[i];
 				const add = {
@@ -34,7 +38,6 @@ export default function addSeance(hallsData, moviesData, seancesData) {
 
                 let seancesTable = document.querySelector('.data-tables-seances');
                 seancesTable.value = JSON.stringify(seancesData);
-                console.log(seancesTable.value, seancesData);
 
 				document.getElementById('addShowPopup').classList.remove('active');
 				viewSeances(hallsData, moviesData, seancesData);
@@ -52,7 +55,7 @@ function isTimeOk(hallID, start, duration, seancesData, moviesData) {
 	if (finish > 1439) finish -= 1440;
 
 	//отбор сеансов в выбранном зале. Перевод начала сеанса в минуты.
-	// добавление продолжительности сеанса. Сортировка по началу сеанса
+	//добавление продолжительности сеанса. Сортировка по началу сеанса
 	let hallIDseances = seancesData.filter(seance => seance.hall_id == hallID);
 	hallIDseances = hallIDseances.map(seance => {
 		const dur = moviesData.find(movie => movie.id === seance.movie_id).duration;
