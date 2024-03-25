@@ -16,16 +16,6 @@ export default function hallConfig(hallsData, choosenHall) {
         cols.value = 0;
     }
 
-
-    /*
-    const openSales = document.querySelector('#open_sales');
-    if (hallsData[choosenHall].is_open) {
-        openSales.textContent = 'Приостановить продажу билетов';
-    } else {
-        openSales.textContent = 'Открыть продажу билетов';
-    }
-    */
-
     // изменение рядов и кресел
     rows.onchange = (e) => {
         const value = parseInt(e.target.value);

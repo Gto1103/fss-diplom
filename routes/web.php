@@ -36,6 +36,7 @@ Route::prefix('admin')->group(function () {
         Route::post('add_movie', [MovieController::class, 'addMovie'])->name('addMovie');
         Route::post('delete_movie/{id}', [MovieController::class, 'deleteMovie'])->name('deleteMovie');
         Route::post('updateSeances', [SeanceController::class, 'updateSeances'])->name('updateSeances');
+        Route::post('updateSales/{hall}', [HallController::class, 'updateSales'])->name('updateSales');
     });
 });
 

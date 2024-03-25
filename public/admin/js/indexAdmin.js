@@ -7,6 +7,7 @@ import deleteSeance from "./deleteSeance.js";
 import viewSeances from "./viewSeances.js";
 import error from "./error.js";
 import inputError from "./inputError.js";
+import openSales from "./openSales.js";
 
 //получение данных с сервера
 
@@ -51,7 +52,7 @@ cancel.forEach(item => {
     }
 });
 
-//проверка на некоторые символы, при вводе названи зала
+//проверка на некоторые символы, при вводе названия зала
 
 const nameHall= document.querySelector('.name__cinema');
 nameHall.addEventListener('change', function(e) {
@@ -81,7 +82,6 @@ for (let i = 0; i < hallsListPrice.length; i++) {
 
 //выбор зала для конфигураций кресел
 const hallsListSeat = [...document.getElementsByName('chairs-hall-seat')];
-
 
 for (let i = 0; i < hallsListSeat.length; i++) {
     const choosenHall = i;
@@ -124,21 +124,20 @@ deleteSeance(hallsData, moviesData, seancesData);
 // отобразить сеанс
 viewSeances(hallsData, moviesData, seancesData);
 
-//кнопка открытия-закрытия продаж
-const openSales = document.querySelector('#open_sales');
-
-openSales.onclick = () => {
-    if (!hallsData[choosenHall].is_open) {
-        openSales.textContent = 'Приостановить продажу билетов';
-        hallsData[choosenHall].is_open = true;
-        saveHall();
-    } else {
-        openSales.textContent = 'Открыть продажу билетов';
-        hallsData[choosenHall].is_open = false;
-        saveHall();
-    }
-}
-
 //проверка правильности ввода данных
 inputError(moviesData, hallsData);
 
+
+//выбор зала для открытия продаж
+const hallsListSales = [...document.getElementsByName('hall-sales')];
+
+for (let i = 0; i < hallsListSales.length; i++) {
+    const choosenHall = i;
+    openSales(hallsData, choosenHall);
+
+    hallsListSales[i].addEventListener('input', function(e) {
+        if (hallsListSales[i].checked === true) {
+            openSales(hallsData, choosenHall);
+        }
+    })
+}

@@ -14,7 +14,7 @@ export default function inputError(moviesData, hallsData) {
         })
         if (inputHallName.value.length > 15) {
             error = true;
-            typeError = "Слишком длинное название";
+            typeError = "Слишком длинное название (до 15 символов)";
         }
     })
 
@@ -30,7 +30,7 @@ export default function inputError(moviesData, hallsData) {
         })
         if (value.length > 40) {
             error = true;
-            typeError = "Слишком длинное название";
+            typeError = "Слишком длинное название (до 40 символов)";
         }
     })
 
@@ -39,7 +39,7 @@ export default function inputError(moviesData, hallsData) {
         const value =  parseInt(inputMovieDur.value);
         if (!Number.isInteger(value) || value <=0 || value > 300) {
             error = true;
-            typeError = "Неверно указана продолжительность фильма";
+            typeError = "Неверно указана продолжительность фильма (до 300 минут)";
         }
     })
 

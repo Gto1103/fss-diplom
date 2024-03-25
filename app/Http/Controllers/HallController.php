@@ -15,7 +15,7 @@ class HallController extends Controller
         $validated = $request->validated();
         Hall::query()->create([
             'name' => $validated['name'],
-            'seats' => '[]'
+            'seats' => '[]',
         ]);
 
         return redirect('admin/index');
@@ -52,4 +52,13 @@ class HallController extends Controller
 
         return redirect('admin/index');
     }
+
+    public function updateSales(Request $request, Hall $hall): RedirectResponse
+    {
+        $hall->is_open = +$request['data-tables-sales'];
+        $hall->save();
+
+        return redirect('admin/index');
+    }
+
 }

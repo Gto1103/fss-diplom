@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -18,9 +17,13 @@
     <header class="page-header">
         <h1 class="page-header__title">Идём<span>в</span>кино</h1>
     </header>
+
     <!-- данные с сервера -->
     <input class="data-seance" type="hidden" value="{{ json_encode($seance) }}" />
+    <input class="data-movie" type="hidden" value="{{ json_encode($movie) }}" />
+    <input class="data-hall" type="hidden" value="{{ json_encode($hall) }}" />
     <input class="data-seats" type="hidden" value="{{ json_encode($seats) }}" />
+
 
     <main>
         <section class="buying">
@@ -37,33 +40,49 @@
 
             <div class="buying-scheme">
                 <div class="buying-scheme__wrapper">
-
                 </div>
-
 
                 <div class="buying-scheme__legend">
                     <div class="col">
                         <p class="buying-scheme__legend-price"><span
-                                class="buying-scheme__chair buying-scheme__chair_standart"></span> Свободно (<span
-                                class="buying-scheme__legend-value st_chair">250</span>руб)</p>
+                                class="buying-scheme__chair buying-scheme__chair_standart no_click"></span> Свободно (
+                            <span class="buying-scheme__legend-value st_chair"> 250 </span> руб )
+                        </p>
                         <p class="buying-scheme__legend-price"><span
-                                class="buying-scheme__chair buying-scheme__chair_vip"></span> Свободно VIP (<span
-                                class="buying-scheme__legend-value vip_chair">350</span>руб)</p>
+                                class="buying-scheme__chair buying-scheme__chair_vip no_click"></span> Свободно VIP (
+                            <span class="buying-scheme__legend-value vip_chair"> 350 </span> руб )
+                        </p>
                     </div>
                     <div class="col">
                         <p class="buying-scheme__legend-price"><span
-                                class="buying-scheme__chair buying-scheme__chair_taken"></span> Занято</p>
+                                class="buying-scheme__chair buying-scheme__chair_taken no_click"></span> Занято</p>
                         <p class="buying-scheme__legend-price"><span
-                                class="buying-scheme__chair buying-scheme__chair_selected"></span> Выбрано</p>
+                                class="buying-scheme__chair buying-scheme__chair_selected no_click"></span> Выбрано</p>
                     </div>
                 </div>
             </div>
-            <!-- <button class="acceptin-button" onclick="location.href='payment.html'" >Забронировать</button> -->
-            <button class="acceptin-button">Забронировать</button>
+            <div class="buying-total">
+                <p class="buying-total__text">Общая стоимость: <span class="buying-total__price">0</span> руб</p>
+            </div>
+
+            <form action="/client/payment/${seance.id}" id="updateSeats" method="post">
+
+                @csrf
+
+                <input class="data-tables-seance" name="data-tables-seance" type="hidden" />
+                <input class="data-tables-movie" name="data-tables-movie" type="hidden" />
+                <input class="data-tables-seance-seats" name="data-tables-seance-seats" type="hidden" />
+                <input class="data-tables-selected-seats" name="data-tables-selected-seats" type="hidden" />
+
+                <!-- <button class="acceptin-button" onclick="location.href='payment.html'" >Забронировать</button> -->
+
+                <button type="submit" class="acceptin-button">Забронировать</button>
+            </form>
         </section>
     </main>
 
-    <script type="module" src="/js/client/hall.js"></script>
+
+    <script type="module" src="../js/hall.js"></script>
 
 </body>
 

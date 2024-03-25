@@ -21,7 +21,7 @@ return new class extends Migration
             $table->json('seats');
             $table->unsignedInteger('price')->default(100);
             $table->unsignedInteger('vip_price')->default(200);
-            $table->boolean('is_open')->default(true);
+            $table->boolean('is_open')->default(false);
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-use App\Models\Movie;
+
 use App\Models\Session;
 
 class SeanceController extends Controller
@@ -24,13 +24,6 @@ class SeanceController extends Controller
         }
 
         foreach ($seancesData as $seanceData) {
-            if ($seances->isEmpty()) {
-                Session::query()->create([
-                    'start' => $seanceData->{'start'},
-                    'hall_id' => +$seanceData->{'hall_id'},
-                    'movie_id' => +$seanceData->{'movie_id'},
-                ]);
-            }
             if (!in_array($seanceData->{'id'}, $idDB)) {
                 Session::query()->create([
                     'start' => $seanceData->{'start'},
@@ -51,7 +44,7 @@ class SeanceController extends Controller
 
     public function addSeats(Request $request, Session $seance)
     {
-        //$seance = Session::query()->findOrFail($id);
+        $seance = Session::query()->findOrFail($id);
         $seance->selected_seats = $request->input('selected_seats');
         $seance->seance_seats = $request->input('seance_seats');
         $seance->save();

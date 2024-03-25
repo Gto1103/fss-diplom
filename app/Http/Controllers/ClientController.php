@@ -6,10 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\Hall;
 use App\Models\Movie;
 use App\Models\Session;
+use App\Models\Seat;
+use Illuminate\View\View;
 
 class ClientController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $halls = Hall::query()->where(['is_open' => true])->get();
         $movies = Movie::with('sessions')->get();
@@ -22,15 +24,28 @@ class ClientController extends Controller
         ]);
     }
 
-    public function hall(int $id)
+    public function hall(int $id): View
     {
-var_dump($id);
-exit;
+        $seance = Session::findOrFail($id);
+        $movie = Movie::findOrFail($seance->movie_id);
+        $hall = Hall::findOrFail($seance->hall_id);
+        Seat::query()->create([
+            'session_id' => $seance->id,
+            'seance_seats' => [],
+            'selected_seats' => [],
+        ]);
+        $seats = Seat::where('session_id', $seance->id)->first();
+        if ($seats->seance_seats == []) {
+            $seats->seance_seats = $hall->seats;
+        }
+        $seats->save();
 
-        $seance = Session::with(['movie', 'hall'])->get()->findOrFail($id);
-        $seats = Hall::query()->where(['hall_id' => $seance->hall_id])->get();
-
-        return view('client.hall', ['seance' => $seance, 'seats' => $seats]);
+        return view('client.hall', [
+            'seance' => $seance,
+            'movie' => $movie,
+            'hall' => $hall,
+            'seats' => json_decode($seats->seance_seats),
+        ]);
     }
 
     public function payment(Request $request, int $id)

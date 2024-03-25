@@ -11,17 +11,25 @@ class Seat extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['hall_id', 'number', 'type_seat'];
+    protected $casts = [
+        'seance_seats' => 'array',
+        'selected_seats' => 'array',
+
+    ];
+    protected $fillable = [
+        'session_id',
+        'seance_seats',
+        'selected_seats',
+    ];
     public $timestamps = false;
 
-    public function hall(): BelongsTo
+    public function session(): BelongsTo
     {
-        return $this->belongsTo(Hall::class, 'hall_id');
+        return $this->belongsTo(Session::class);
     }
 
     public function tickets(): BelongsToMany
     {
         return $this->belongsToMany(Ticket::class);
     }
-
 }

@@ -232,6 +232,7 @@ body {
   text-align: center;
 }
 .buying__info .buying__info-hint p {
+    visibility: hidden;
   position: relative;
   width: 10rem;
 }
@@ -278,7 +279,13 @@ body {
   border: 1px solid #525252;
   box-sizing: border-box;
   border-radius: 4px;
+  cursor: pointer;
 }
+
+.no_click {
+    cursor: auto;
+}
+
 .buying-scheme__chair:not(:first-of-type) {
   margin-left: 4px;
 }
@@ -327,6 +334,22 @@ body {
 .buying-scheme__legend .buying-scheme__legend-price + .buying-scheme__legend-price {
   margin-top: 1rem;
 }
+
+.buying-total {
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 1.5rem 3rem 1.5rem;
+}
+
+.buying-total__text {
+    display: inline-block;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    padding-top: 3rem;
+}
+
+
 
 /* ~~~~~~~~~~~~ Билет ~~~~~~~~~~~~ */
 .tichet__check, .ticket__info-wrapper {
