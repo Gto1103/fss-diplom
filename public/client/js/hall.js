@@ -113,7 +113,9 @@ for (let i = 0; i < chairs.length; i++) {
             if (action === 'add'){
                 totalPrice += +price;
                 document.querySelector('.buying-total__price').textContent = totalPrice;
+                document.querySelector('.data-tables-total-price').value = totalPrice;
                 selectedSeats[i] = 'selected';
+
                 chosenChairs.push(seats.seance_seats[i]);
                 rowAndSeat.push(seatInHall(i));
             }
@@ -121,6 +123,7 @@ for (let i = 0; i < chairs.length; i++) {
             if (action === 'remove'){
                 totalPrice -= +price;
                 document.querySelector('.buying-total__price').textContent = totalPrice;
+                document.querySelector('.data-tables-total-price').value = totalPrice;
                 selectedSeats[i] = seatsArr[i];
                 let index = chosenChairs.indexOf(seatsArr[i]);
                 chosenChairs.splice(index, 1);
@@ -137,53 +140,9 @@ for (let i = 0; i < chairs.length; i++) {
 
         let seatsTableSelected = document.querySelector('.data-tables-selected-seats');
         seatsTableSelected.value = JSON.stringify(seats.selected_seats);
-        console.log(seats);
-
         }
     }
 }
-/*
-hallsData[choosenHall].seats = JSON.stringify(seatsArr);
-        let seatsTable = document.querySelector('.data-tables-seats');
-        seatsTable.value = JSON.stringify(hallsData);
-    }
-
-   //сохранение updateSeats
-    const formUpdateSeats = document.getElementById('updateSeats');
-    formUpdateSeats.action =  '/admin/updateSeats/';
-    */
-
-
-//обработка отправки формы
-document.querySelector('.acceptin-button').addEventListener('click', (e) => {
-    e.preventDefault();
-    if (rowAndSeat.length < 1) return null;
-
-    for (let i = 0; i < selectedSeats.length; i++) {
-        rowAndSeat.forEach(rowSeat => {
-            if (i+1 === rowSeat.id) {
-                selectedSeats[i] = 'taken';
-            }
-        });
-    }
-    /*
-    seats.selected_seats = rowAndSeat;
-    seats.seance_seats = selectedSeats;
-
-    seatsData = JSON.stringify(seats);
-    let seatsTableOutput = document.querySelector('.data-tables-seats');
-    seatsTableOutput.value = JSON.stringify(seatsData);
-
-    const options = {
-        method: "POST",
-        body: JSON.stringify(seance),
-        headers: {"Content-Type": "application/json"}
-    }
-    */
-
-    location.href = `/client/payment/${seance.id}`;
-})
-
 
 //перевести номер seat в ряд и место в зале
 function seatInHall(num) {
@@ -203,3 +162,30 @@ function seatInHall(num) {
     //return `Ряд ${row}, Место ${s} `
     return {id: num+1, row: row, seat: s, type: seatsArr[num]};
 }
+
+//обработка отправки формы
+document.querySelector('.acceptin-button').addEventListener('click', (e) => {
+    e.preventDefault();
+    if (rowAndSeat.length < 1) return null;
+
+    for (let i = 0; i < selectedSeats.length; i++) {
+        rowAndSeat.forEach(rowSeat => {
+            if (i+1 === rowSeat.id) {
+                selectedSeats[i] = 'taken';
+            }
+        });
+    }
+
+    seats.selected_seats = rowAndSeat;
+    seats.seance_seats = selectedSeats;
+
+    let seatsTableSeance = document.querySelector('.data-tables-seance-seats');
+    seatsTableSeance.value = JSON.stringify(seats.seance_seats);
+
+    let seatsTableSelected = document.querySelector('.data-tables-selected-seats');
+    seatsTableSelected.value = JSON.stringify(seats.selected_seats);
+
+    const formSelectSeats = document.getElementById('selectSeats');
+    formSelectSeats.action = '/client/payment/' + seance.id;
+    formSelectSeats.submit();
+})

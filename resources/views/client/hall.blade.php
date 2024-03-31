@@ -65,18 +65,17 @@
                 <p class="buying-total__text">Общая стоимость: <span class="buying-total__price">0</span> руб</p>
             </div>
 
-            <form action="/client/payment/${seance.id}" id="updateSeats" method="post">
+            <form action="/client/payment" id="selectSeats" method="post">
 
                 @csrf
 
-                <input class="data-tables-seance" name="data-tables-seance" type="hidden" />
-                <input class="data-tables-movie" name="data-tables-movie" type="hidden" />
+                <input class="data-tables-total-price" name="data-tables-total-price" type="hidden" />
                 <input class="data-tables-seance-seats" name="data-tables-seance-seats" type="hidden" />
                 <input class="data-tables-selected-seats" name="data-tables-selected-seats" type="hidden" />
 
                 <!-- <button class="acceptin-button" onclick="location.href='payment.html'" >Забронировать</button> -->
 
-                <button type="submit" class="acceptin-button">Забронировать</button>
+                <input type="submit" value="Забронировать" class="acceptin-button"></input>
             </form>
         </section>
     </main>

@@ -43,6 +43,6 @@ Route::prefix('admin')->group(function () {
 Route::prefix('client')->group(function () {
     Route::get('index', [ClientController::class, 'index']);
     Route::get('hall/{id}', [ClientController::class, 'hall']);
-    Route::get('payment/{id}', [ClientController::class, 'payment']);
+    Route::post('payment/{id}', [ClientController::class, 'payment'])->name('payment');
     Route::get('ticket/{id}', [ClientController::class, 'ticket']);
 });

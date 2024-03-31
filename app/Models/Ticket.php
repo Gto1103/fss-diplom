@@ -11,7 +11,13 @@ class Ticket extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['session_id'];
+    protected $fillable = [
+        'session_id',
+        'title_movie',
+        'selected_seats',
+        'name_hall',
+        'total_price',
+    ];
 
     public $timestamps = false;
 
