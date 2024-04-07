@@ -6,8 +6,6 @@ const ticketTable = document.querySelector('.data-ticket');
 const ticket = JSON.parse(ticketTable.value);
 const seats = JSON.parse(ticket.selected_seats);
 
-console.log(ticket);
-console.log(seats);
 
 document.querySelector('.ticket__title').textContent = ticket.title_movie;
 document.querySelector('.ticket__chairs').textContent = seatsForTicket();

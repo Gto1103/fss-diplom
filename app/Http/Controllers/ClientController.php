@@ -36,7 +36,7 @@ class ClientController extends Controller
             'selected_seats' => [],
         ]);
         $seats = Seat::where('session_id', $seance->id)->first();
-        if ($seats->seance_seats == []) {
+        if (!$seats->seance_seats) {
             $seats->seance_seats = $hall->seats;
         }
         $seats->save();
@@ -51,12 +51,9 @@ class ClientController extends Controller
 
     public function payment(Request $request, int $id)
     {
-        $seanceSeats = ($request['data-tables-seance-seats']);
-        $selectedSeats = ($request['data-tables-selected-seats']);
-        $totalPrice = +($request['data-tables-total-price']);
-
-        //var_dump($seanceSeats, $selectedSeats, $totalPrice);
-        //exit;
+        $seanceSeats = $request->input('data-tables-seance-seats');
+        $selectedSeats = $request->input('data-tables-selected-seats');
+        $totalPrice = +$request->input('data-tables-total-price');
 
         $seance = Session::findOrFail($id);
         $movie = Movie::findOrFail($seance->movie_id);

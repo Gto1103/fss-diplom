@@ -31,8 +31,8 @@ class HallController extends Controller
 
     public function updatePrice(Request $request, Hall $hall): RedirectResponse
     {
-        $hall->price = +$request['price'];
-        $hall->vip_price = +$request['vip_price'];
+        $hall->price = +$request->input('price');
+        $hall->vip_price = +$request->input('vip_price');
         $hall->save();
 
         return redirect('admin/index');
@@ -40,13 +40,13 @@ class HallController extends Controller
 
     public function updateSeats(Request $request): RedirectResponse
     {
-        $seatsData = json_decode($request['data-tables-seats']);
+        $seatsData = json_decode($request->input('data-tables-seats'));
 
         foreach ($seatsData as $value) {
-            $updatingHall = Hall::findOrFail($value->{'id'});
-            $updatingHall->rows = +$value->{'rows'};
-            $updatingHall->cols = +$value->{'cols'};
-            $updatingHall->seats = $value->{'seats'};
+            $updatingHall = Hall::findOrFail($value->id);
+            $updatingHall->rows = +$value->rows;
+            $updatingHall->cols = +$value->cols;
+            $updatingHall->seats = $value->seats;
             $updatingHall->save();
         }
 
@@ -55,7 +55,7 @@ class HallController extends Controller
 
     public function updateSales(Request $request, Hall $hall): RedirectResponse
     {
-        $hall->is_open = +$request['data-tables-sales'];
+        $hall->is_open = +$request->input('data-tables-sales');
         $hall->save();
 
         return redirect('admin/index');
