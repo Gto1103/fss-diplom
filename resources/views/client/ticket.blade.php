@@ -37,7 +37,7 @@
                 <p class="ticket__info">Начало сеанса: <span class="ticket__details ticket__start">18:30</span></p>
 
                 <div class="ticket__info-qr">
-                    {!! QrCode::encoding('UTF-8')->size(200)->generate(
+                    {!! QrCode::encoding('UTF-8')->size(200)->margin(2)->generate(
                             "Фильм: $ticket->title_movie, Места: $ticket->selected_seats, Зал: $ticket->name_hall, Начало: $seance->start",
                         ) !!}
                 </div>
